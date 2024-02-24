@@ -1,15 +1,22 @@
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors or IDEs
-# http://editorconfig.org
 root = true
 
 [*]
-indent_style = space
-indent_size = 2
-end_of_line = lf
 charset = utf-8
-trim_trailing_whitespace = true
+end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
 
-[*.md]
+[*.{js,ts}]
+indent_size = 4
+indent_style = tab
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
+
+[*.{yml,yaml}]
+indent_size = 2
+indent_style = space
+
+[*.{md,rmd,mkd,mkdn,mdwn,mdown,markdown,litcoffee}]
+tab_width = 4
 trim_trailing_whitespace = false
