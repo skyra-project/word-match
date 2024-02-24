@@ -1,10 +1,4 @@
 {
 	"extends": "./tsconfig.base.json",
-	"compilerOptions": {
-		"lib": ["esnext", "dom"],
-		"noEmit": true,
-		"incremental": false,
-		"types": ["vitest/globals"]
-	},
-	"include": ["./index.d.ts", "tests", "./vitest.config.ts"]
+	"include": ["./index.js", "./index.d.ts", "tests", "./vitest.config.ts"]
 }
