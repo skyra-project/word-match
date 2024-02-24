@@ -4,6 +4,8 @@
 
 > A fast and complete word matcher for Skyra's systems 🚀
 
+<!-- Based on https://gist.github.com/kyranet/39eb5cc31ec302177b2290082bf5b970, let's keep this a secret, shall we? 🤫 -->
+
 ## Buy us some doughnuts
 
 Skyra Project is open source and always will be, even if we don't get donations. That said, we know there are amazing people who
@@ -25,8 +27,8 @@ Please make sure to read the [Contributing Guide][contributing] before making a 
 
 Thank you to all the people who already contributed to Skyra Project!
 
-<a href="https://github.com/skyra-project/archid-components/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=skyra-project/archid-components" />
+<a href="https://github.com/kyranet/word-match/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kyranet/word-match" />
 </a>
 
 [contributing]: https://github.com/skyra-project/.github/blob/main/.github/CONTRIBUTING.md
