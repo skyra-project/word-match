@@ -1,6 +1,6 @@
-# `@napi-rs/package-template`
+# `@kyranet/word-match`
 
-![https://github.com/napi-rs/package-template/actions](https://github.com/napi-rs/package-template/workflows/CI/badge.svg)
+![https://github.com/kyranet/word-match/actions](https://github.com/kyranet/word-match/workflows/CI/badge.svg)
 
 > A fast and complete word matcher for Skyra's systems 🚀
 
