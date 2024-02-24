@@ -124,7 +124,7 @@ impl Word {
 			if self.parts[0].matches(c) {
 				let mut part_index = 1;
 				let mut word_index = 1;
-				while let Some((end, c)) = chars.next() {
+				for (end, c) in chars.by_ref() {
 					if self.parts[word_index].matches(c) {
 						word_index += 1;
 						if word_index == self.parts.len() {

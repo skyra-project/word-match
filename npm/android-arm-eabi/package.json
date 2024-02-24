@@ -1,32 +1,32 @@
 {
-  "name": "@skyra/word-match-android-arm-eabi",
-  "version": "1.0.0",
-  "os": [
-    "android"
-  ],
-  "cpu": [
-    "arm"
-  ],
-  "main": "word-match.android-arm-eabi.node",
-  "files": [
-    "word-match.android-arm-eabi.node"
-  ],
-  "description": "A fast and complete word matcher for Skyra's systems 🚀",
-  "keywords": [
-    "napi-rs",
-    "NAPI",
-    "N-API",
-    "Rust",
-    "node-addon",
-    "node-addon-api"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "repository": "https://github.com/kyranet/word-match"
+	"name": "@skyra/word-match-android-arm-eabi",
+	"version": "1.0.0",
+	"os": [
+		"android"
+	],
+	"cpu": [
+		"arm"
+	],
+	"main": "word-match.android-arm-eabi.node",
+	"files": [
+		"word-match.android-arm-eabi.node"
+	],
+	"description": "A fast and complete word matcher for Skyra's systems 🚀",
+	"keywords": [
+		"napi-rs",
+		"NAPI",
+		"N-API",
+		"Rust",
+		"node-addon",
+		"node-addon-api"
+	],
+	"license": "MIT",
+	"engines": {
+		"node": ">= 10"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"repository": "https://github.com/kyranet/word-match"
 }

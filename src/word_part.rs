@@ -1,3 +1,5 @@
+use std::fmt::{Display, Formatter, Result};
+
 use crate::constants::*;
 
 #[derive(PartialEq)]
@@ -8,19 +10,19 @@ pub enum WordPart {
 	AnyWildcard,      // Any wildcard character, "**"
 }
 
-impl ToString for WordPart {
-	fn to_string(&self) -> String {
+impl Display for WordPart {
+	fn fmt(&self, f: &mut Formatter<'_>) -> Result {
 		match self {
-			WordPart::Single(character) => match character {
-				&ASTERISK => format!("{ESCAPE}{ASTERISK}"),
-				&GROUP_START => format!("{ESCAPE}{ASTERISK}"),
-				_ => character.to_string(),
+			WordPart::Single(character) => match *character {
+				ASTERISK => write!(f, "{ESCAPE}{ASTERISK}"),
+				GROUP_START => write!(f, "{ESCAPE}{ASTERISK}"),
+				_ => write!(f, "{character}"),
 			},
 			WordPart::Group(characters) => {
-				format!("{GROUP_START}{0}{GROUP_END}", characters.iter().collect::<String>())
+				write!(f, "{GROUP_START}{0}{GROUP_END}", characters.iter().collect::<String>())
 			}
-			WordPart::SingleWildcard => ASTERISK.to_string(),
-			WordPart::AnyWildcard => format!("{ASTERISK}{ASTERISK}"),
+			WordPart::SingleWildcard => write!(f, "{ASTERISK}"),
+			WordPart::AnyWildcard => write!(f, "{ASTERISK}{ASTERISK}"),
 		}
 	}
 }

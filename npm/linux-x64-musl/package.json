@@ -1,35 +1,35 @@
 {
-  "name": "@skyra/word-match-linux-x64-musl",
-  "version": "1.0.0",
-  "os": [
-    "linux"
-  ],
-  "cpu": [
-    "x64"
-  ],
-  "main": "word-match.linux-x64-musl.node",
-  "files": [
-    "word-match.linux-x64-musl.node"
-  ],
-  "description": "A fast and complete word matcher for Skyra's systems 🚀",
-  "keywords": [
-    "napi-rs",
-    "NAPI",
-    "N-API",
-    "Rust",
-    "node-addon",
-    "node-addon-api"
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
-  },
-  "repository": "https://github.com/kyranet/word-match",
-  "libc": [
-    "musl"
-  ]
+	"name": "@skyra/word-match-linux-x64-musl",
+	"version": "1.0.0",
+	"os": [
+		"linux"
+	],
+	"cpu": [
+		"x64"
+	],
+	"main": "word-match.linux-x64-musl.node",
+	"files": [
+		"word-match.linux-x64-musl.node"
+	],
+	"description": "A fast and complete word matcher for Skyra's systems 🚀",
+	"keywords": [
+		"napi-rs",
+		"NAPI",
+		"N-API",
+		"Rust",
+		"node-addon",
+		"node-addon-api"
+	],
+	"license": "MIT",
+	"engines": {
+		"node": ">= 10"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"repository": "https://github.com/kyranet/word-match",
+	"libc": [
+		"musl"
+	]
 }
