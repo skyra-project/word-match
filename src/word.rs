@@ -1,21 +1,13 @@
 use std::char;
 
 use napi::{Error, Status};
-use napi_derive::napi;
 
-use crate::{constants::*, word_part::*};
-
-#[napi]
-pub struct Word {
-	parts: Vec<WordPart>,
-	bound_left: bool,
-	bound_right: bool,
-}
+use crate::{confusables::Confusable, constants::*, word_part::*};
 
 #[napi]
 pub struct WordMatch {
-	start: usize,
-	end: usize,
+	pub(crate) start: usize,
+	pub(crate) end: usize,
 }
 
 #[napi]
@@ -32,29 +24,35 @@ impl WordMatch {
 }
 
 #[napi]
+#[derive(Clone)]
+pub struct Word {
+	parts: Vec<WordPart>,
+	pub bound_left: bool,
+	pub bound_right: bool,
+}
+
+#[napi]
 impl Word {
 	#[napi(constructor)]
 	pub fn new(word: String) -> Result<Self, Error> {
-		let mut parts: Vec<WordPart> = Vec::new();
+		let word = word.replace_confusables().to_lowercase();
 		let mut chars = word.chars().peekable();
 
+		let mut parts: Vec<WordPart> = Vec::new();
 		while let Some(c) = chars.next() {
-			// If '*' is found, it is a SingleWildcard
-			// If '**' is found, it is an AnyWildcard
-			// If '[' is found, it is the beginning of a Group, read until ']' and
-			// deduplicated If '\' is found, it is an escape character, read the next
-			// character Otherwise, it is a Single
-
 			let part = match c {
 				ASTERISK => {
 					if chars.peek() == Some(&ASTERISK) {
+						// Found '**':
 						chars.next();
 						WordPart::AnyWildcard
 					} else {
+						// Found '*':
 						WordPart::SingleWildcard
 					}
 				}
 				GROUP_START => {
+					// Found '['
 					let mut group: Vec<char> = Vec::new();
 					loop {
 						match chars.next() {
@@ -84,6 +82,7 @@ impl Word {
 					WordPart::Group(group)
 				}
 				ESCAPE => {
+					// Found '\'
 					if let Some(c) = chars.next() {
 						WordPart::Single(c)
 					} else {
@@ -116,8 +115,7 @@ impl Word {
 		Ok(Word { parts, bound_left, bound_right })
 	}
 
-	#[napi]
-	pub fn matches(&self, sentence: String) -> Option<WordMatch> {
+	pub fn matches(&self, sentence: &str) -> Option<WordMatch> {
 		let mut chars = sentence.char_indices().peekable();
 
 		while let Some((start, c)) = chars.next() {
@@ -140,6 +138,11 @@ impl Word {
 		}
 
 		None
+	}
+
+	#[napi(js_name = "matches")]
+	pub fn js_matches(&self, sentence: String) -> Option<WordMatch> {
+		self.matches(sentence.as_str())
 	}
 
 	#[napi]

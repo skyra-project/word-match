@@ -1,7 +1,5 @@
 use std::fmt;
 
-use napi_derive::napi;
-
 use crate::confusables::Confusable;
 
 #[napi]
@@ -31,6 +29,13 @@ impl Boundary {
 
 #[napi]
 pub struct Sentence {
+	// TODO: checked is useful, but it could be even more useful by having a vector of spans which split up as needed.
+	// For example, if "drowned" is marked in "Steve drowned in lava", upon marking, the regions would become from
+	// [0..=21] to [0..=6] ("Steve ") and [13..=21] (" in lava"), where [7..=12] ("drowned") is removed. However, an
+	// improved algorithm would include the spaces (trimming sideways) so the ranges become [0..=5] ("Steve") and
+	// [14..=21] ("in lava"), which reduces the amount of checks. However, `checked` must stay untrimmed or else when
+	// the words are censored, it includes the spaces ("Steve*********in lava") which is suboptimal compared to the
+	// opposite ("Steve ******* in lava").
 	/// A vector of booleans that represent whether the character at the same
 	/// index has been checked by a `Word`.
 	pub checked: Vec<bool>,
@@ -40,22 +45,24 @@ pub struct Sentence {
 	/// A vector of characters that represent the sanitized contents of the
 	/// sentence.
 	pub(crate) contents: Vec<char>,
-	/// A vector of indexes that represent the start of each word in the
+	/// A vector of indexes that represent the start and end of each word in the
 	/// sentence.
-	pub(crate) indexes: Vec<usize>,
+	pub(crate) indexes: Vec<(usize, usize)>,
 }
 
 #[napi]
 impl Sentence {
 	#[napi(constructor)]
 	pub fn new(sentence: String) -> Self {
-		let sentence = sentence.replace_confusable();
+		let sentence = sentence.replace_confusables().to_lowercase();
 		let mut checked: Vec<bool> = Vec::with_capacity(sentence.len());
 		let mut boundaries: Vec<Boundary> = Vec::with_capacity(sentence.len());
 		let mut contents: Vec<char> = Vec::with_capacity(sentence.len());
-		let mut indexes: Vec<usize> = Vec::with_capacity(sentence.len());
+		let mut indexes: Vec<(usize, usize)> = Vec::with_capacity(sentence.len());
 
 		let mut chars = sentence.chars().peekable();
+		// TODO: Rewrite this loop to a nested loop for improved efficiency, code
+		// readability, and reduce code duplication.
 		while let Some(c) = chars.next() {
 			let mut boundary = if c.is_whitespace() || c.is_control() {
 				Boundary::NoContent
@@ -70,7 +77,8 @@ impl Sentence {
 			};
 
 			if boundary == Boundary::Start {
-				indexes.push(contents.len());
+				let start = contents.len();
+				indexes.push((start, start));
 
 				// If the next character is a whitespace or control character, the boundary is
 				// mixed as this character is both the start and the end of a word.

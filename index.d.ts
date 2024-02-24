@@ -33,12 +33,19 @@ export class Sentence {
 	get length(): number;
 	toString(): string;
 }
+export class WordMatch {
+	get start(): number;
+	get end(): number;
+}
 export class Word {
+	boundLeft: boolean;
+	boundRight: boolean;
 	constructor(word: string);
 	matches(sentence: string): WordMatch | null;
 	toString(): string;
 }
-export class WordMatch {
-	get start(): number;
-	get end(): number;
+export class WordGroup {
+	constructor(entries: Array<string>);
+	get words(): Array<Word>;
+	matches(sentence: Sentence): boolean;
 }

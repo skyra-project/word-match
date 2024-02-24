@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter, Result};
 
 use crate::constants::*;
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone)]
 pub enum WordPart {
 	Single(char),     // Single character
 	Group(Vec<char>), // Group of characters (e.g. "[abc]" -> [a, b, c])
