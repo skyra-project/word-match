@@ -7,11 +7,11 @@ pub trait Confusable {
 
 impl Confusable for char {
 	fn contains_confusable(&self) -> bool {
-		KEYWORDS.get(&self).is_some()
+		KEYWORDS.get(self).is_some()
 	}
 
 	fn replace_confusable(&self) -> String {
-		match KEYWORDS.get(&self) {
+		match KEYWORDS.get(self) {
 			Some(value) => value.to_string(),
 			None => self.to_string(),
 		}
