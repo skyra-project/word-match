@@ -1,7 +1,9 @@
 [package]
 authors = ["Aura Román <kyradiscord@gmail.com>"]
 edition = "2021"
+license = "Apache-2.0"
 name    = "word-match"
+readme  = "README.md"
 version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,11 +12,14 @@ version = "0.1.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi        = "2"
-napi-derive = "2"
+napi        = "2.15.4"
+napi-derive = "2.15.3"
+phf         = { version = "0.11.2", default-features = false }
 
 [build-dependencies]
-napi-build = "2"
+napi-build  = "2.1.2"
+phf         = { version = "0.11.2", default-features = false }
+phf_codegen = "0.11.2"
 
 [profile.release]
 lto = true

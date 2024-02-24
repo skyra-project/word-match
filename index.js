@@ -234,7 +234,9 @@ if (!nativeBinding) {
 	throw new Error(`Failed to load native binding`);
 }
 
-const { Word, WordMatch } = nativeBinding;
+const { Boundary, Sentence, Word, WordMatch } = nativeBinding;
 
+module.exports.Boundary = Boundary;
+module.exports.Sentence = Sentence;
 module.exports.Word = Word;
 module.exports.WordMatch = WordMatch;

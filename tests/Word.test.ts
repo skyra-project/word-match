@@ -1,4 +1,4 @@
-import { Word, WordMatch } from '../index';
+import { Word, type WordMatch } from '../index';
 
 test('Word', () => {
 	const word = new Word('hello');

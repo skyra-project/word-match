@@ -44,8 +44,8 @@
 	},
 	"scripts": {
 		"artifacts": "napi artifacts",
-		"build": "napi build --platform --release --pipe \"prettier -w\"",
-		"build:debug": "napi build --platform --pipe \"prettier -w\"",
+		"build": "napi build --platform --no-const-enum --release --pipe \"prettier -w\"",
+		"build:debug": "napi build --platform --no-const-enum --pipe \"prettier -w\"",
 		"format": "run-p format:prettier format:rs format:toml",
 		"format:prettier": "prettier . -w",
 		"format:toml": "taplo format",
