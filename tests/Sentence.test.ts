@@ -1,4 +1,4 @@
-import { Boundary, Sentence } from '../index';
+import { Boundary, Sentence, Word } from '../index';
 
 describe('Sentence', () => {
 	test.each([
@@ -22,6 +22,34 @@ describe('Sentence', () => {
 			Boundary.Word, //      l
 			Boundary.End //        d
 		]);
-		expect(sentence.checked).toEqual([false, false, false, false, false, false, false, false, false, false, false]);
+	});
+
+	describe('toCensoredString', () => {
+		test('GIVEN a matching word THEN returns censored string', () => {
+			const original = 'Hello world';
+			const sentence = new Sentence(original);
+			const word = new Word('hello');
+
+			expect(word.matches(sentence)).toBe(true);
+			expect(sentence.toCensoredString({ original })).toBe('***** world');
+		});
+
+		test('GIVEN a matching word and a custom censor string THEN returns custom censored string', () => {
+			const original = 'Hello world';
+			const sentence = new Sentence(original);
+			const word = new Word('hello');
+
+			expect(word.matches(sentence)).toBe(true);
+			expect(sentence.toCensoredString({ original, character: '\\*' })).toBe('\\*\\*\\*\\*\\* world');
+		});
+
+		test('GIVEN a non-matching word THEN returns censored string', () => {
+			const original = 'Hello world';
+			const sentence = new Sentence(original);
+			const word = new Word('foo');
+
+			expect(word.matches(sentence)).toBe(false);
+			expect(sentence.toCensoredString({ original })).toBe('Hello world');
+		});
 	});
 });

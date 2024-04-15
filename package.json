@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "A fast and complete word matcher for Skyra's systems 🚀",
 	"main": "index.js",
-	"repository": "https://github.com/kyranet/word-match",
+	"repository": "https://github.com/skyra-project/word-match",
 	"license": "MIT",
 	"keywords": [
 		"napi-rs",
@@ -49,33 +49,33 @@
 		"format": "run-p format:prettier format:rs format:toml",
 		"format:prettier": "prettier . -w",
 		"format:toml": "taplo format",
-		"format:rs": "cargo fmt",
+		"format:rs": "cargo +nightly fmt",
 		"lint": "eslint .",
 		"prepublishOnly": "napi prepublish -t npm",
 		"test": "vitest run",
 		"version": "napi version"
 	},
 	"devDependencies": {
-		"@napi-rs/cli": "^2.16.4",
-		"@sapphire/eslint-config": "^5.0.3",
+		"@napi-rs/cli": "^2.18.1",
+		"@sapphire/eslint-config": "^5.0.4",
 		"@sapphire/prettier-config": "^2.0.0",
-		"@sapphire/ts-config": "^5.0.0",
-		"@swc-node/register": "^1.6.8",
-		"@swc/core": "^1.3.95",
+		"@sapphire/ts-config": "^5.0.1",
+		"@swc-node/register": "^1.9.0",
+		"@swc/core": "^1.4.14",
 		"@taplo/cli": "^0.7.0",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^7.0.0",
+		"@typescript-eslint/eslint-plugin": "^7.6.0",
+		"@typescript-eslint/parser": "^7.6.0",
 		"chalk": "^5.3.0",
 		"eslint": "^8.52.0",
-		"eslint-config-prettier": "^9.0.0",
-		"eslint-plugin-import": "^2.29.0",
-		"eslint-plugin-prettier": "^5.0.1",
-		"husky": "^9.0.0",
-		"lint-staged": "^15.0.2",
-		"npm-run-all2": "^6.0.0",
-		"prettier": "^3.0.3",
-		"typescript": "^5.2.2",
-		"vitest": "^1.3.1"
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-prettier": "^5.1.3",
+		"husky": "^9.0.11",
+		"lint-staged": "^15.2.2",
+		"npm-run-all2": "^6.1.2",
+		"prettier": "^3.2.5",
+		"typescript": "^5.4.5",
+		"vitest": "^1.5.0"
 	},
 	"lint-staged": {
 		"*.@(js|ts|tsx)": [
@@ -92,5 +92,5 @@
 	"eslintConfig": {
 		"extends": "@sapphire"
 	},
-	"packageManager": "yarn@4.1.0"
+	"packageManager": "yarn@4.1.1"
 }

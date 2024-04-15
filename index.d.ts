@@ -16,36 +16,127 @@ export enum Boundary {
 	 * A non-word character, which can be skipped, such as punctuation, spaces,
 	 * or newlines.
 	 */
-	NoContent = 4
+	NoContent = 4,
+	/** A character that has been marked */
+	Marked = 5
 }
+export interface ToCensoredStringOptions {
+	/** The character to use to censor the marked characters, defaults to `'*'`. */
+	character?: string;
+	/** The original sentence before it was sanitized and lowercased. */
+	original: string;
+}
+/**
+ * A struct that represents a sentence. The sentence is split into spans that
+ * are checked by the `Word` class. The spans are updated when a word is
+ * checked, and the indexes are updated to keep track of the words that have
+ * been checked.
+ */
 export class Sentence {
-	/**
-	 * A vector of booleans that represent whether the character at the same
-	 * index has been checked by a `Word`.
-	 */
-	checked: Array<boolean>;
 	/**
 	 * A vector of `Boundary` that represent the boundaries of the words in the
 	 * sentence.
+	 *
+	 * This vector is updated when a span is marked, updating the surrounding
+	 * boundaries to reflect the start and end of a word.
+	 *
+	 * For example, if the sentence is "A Pepe", the `boundaries` vector will
+	 * be initialized with the boundaries:
+	 * - `Mixed` "A"
+	 * - `NoContent` " "
+	 * - `Start` "P"
+	 * - `Word` "e"
+	 * - `Word` "p"
+	 * - `End` "e"
+	 *
+	 * If the word "Pepe" is checked, the `boundaries` vector will be updated
+	 * to the boundaries:
+	 * - `Mixed` "A"
+	 * - `NoContent` " "
+	 * - `Marked` "P"
+	 * - `Marked` "e"
+	 * - `Marked` "p"
+	 * - `Marked` "e"
+	 *
+	 * Similarly, if the slice "Pep" is checked, the `boundaries` vector will
+	 * be updated to the boundaries:
+	 * - `Mixed` "A"
+	 * - `NoContent` " "
+	 * - `Marked` "P"
+	 * - `Marked` "e"
+	 * - `Marked` "p"
+	 * - `Mixed` "e"
+	 *
+	 * This becomes useful when checking for words that are prefixes, suffixes,
+	 * or infixes of other words.
 	 */
 	boundaries: Array<Boundary>;
 	constructor(sentence: string);
+	/**
+	 * Gets the length of the array. This is a number one higher than the
+	 * highest index in the array.
+	 */
 	get length(): number;
+	/**
+	 * Returns the contents of the sentence as a string.
+	 *
+	 * @remarks
+	 *
+	 * This method does not return the original sentence, but ts sanitized
+	 * and lowercased contents.
+	 */
 	toString(): string;
+	/**
+	 * Returns the contents of the sentence as a string, censoring the marked
+	 * characters with the provided character.
+	 *
+	 * @param options - The options to use when censoring the marked
+	 * characters.
+	 *
+	 * @returns The contents of the sentence with the marked characters
+	 * censored.
+	 *
+	 * @example
+	 *
+	 * ```ts
+	 * const original = "Pepe ate a banana";
+	 * const sentence = new Sentence(original);
+	 * const word = new Word("Pepe");
+	 *
+	 * word.check(sentence);
+	 * sentence.toCensoredString({ character: "X", original });
+	 * // ⇒ "XXXX ate a banana"
+	 * ```
+	 *
+	 * @remarks
+	 *
+	 * The original sentence must have the same length as the sentence, or an
+	 * error will be thrown.
+	 */
+	toCensoredString(options: ToCensoredStringOptions): string;
 }
 export class WordMatch {
 	get start(): number;
 	get end(): number;
 }
+/**
+ * The `Word` struct represents a word that can be matched against a
+ * `Sentence`.
+ *
+ * It is composed of a series of `WordPart`s, which can be a single character,
+ * a group of characters (`[abc]`), a single wildcard (`*`), or an any wildcard
+ * (`**`).
+ *
+ * It is intended to be used to match words within a `Sentence` using
+ * [`matches`](Word::matches).
+ */
 export class Word {
+	/** If `true`, the word must match the left boundary of the sentence. */
 	boundLeft: boolean;
+	/** If `true`, the word must match the right boundary of the sentence. */
 	boundRight: boolean;
 	constructor(word: string);
-	matches(sentence: string): WordMatch | null;
-	toString(): string;
-}
-export class WordGroup {
-	constructor(entries: Array<string>);
-	get words(): Array<Word>;
 	matches(sentence: Sentence): boolean;
+	get length(): number;
+	toString(): string;
 }

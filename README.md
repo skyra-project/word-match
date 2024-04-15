@@ -1,6 +1,6 @@
-# `@kyranet/word-match`
+# `@skyra/word-match`
 
-![https://github.com/kyranet/word-match/actions](https://github.com/kyranet/word-match/workflows/CI/badge.svg)
+![https://github.com/skyra-project/word-match/actions](https://github.com/skyra-project/word-match/workflows/CI/badge.svg)
 
 > A fast and complete word matcher for Skyra's systems 🚀
 
@@ -27,8 +27,8 @@ Please make sure to read the [Contributing Guide][contributing] before making a 
 
 Thank you to all the people who already contributed to Skyra Project!
 
-<a href="https://github.com/kyranet/word-match/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kyranet/word-match" />
+<a href="https://github.com/skyra-project/word-match/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=skyra-project/word-match" />
 </a>
 
 [contributing]: https://github.com/skyra-project/.github/blob/main/.github/CONTRIBUTING.md

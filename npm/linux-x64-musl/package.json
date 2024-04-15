@@ -28,7 +28,7 @@
 		"registry": "https://registry.npmjs.org/",
 		"access": "public"
 	},
-	"repository": "https://github.com/kyranet/word-match",
+	"repository": "https://github.com/skyra-project/word-match",
 	"libc": [
 		"musl"
 	]
