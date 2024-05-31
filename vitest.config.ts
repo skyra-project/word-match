@@ -4,15 +4,11 @@ export default defineConfig({
 	test: {
 		globals: true,
 		coverage: {
-			enabled: false
-		},
-		poolOptions: {
-			threads: {
-				singleThread: true
-			}
+			enabled: true,
+			reporter: ['text', 'lcov', 'clover']
 		}
 	},
 	esbuild: {
-		target: 'esnext'
+		target: 'es2020'
 	}
 });
